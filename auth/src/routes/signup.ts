@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { RequestValidationError } from "../errors/request-validation-error";
-import { DbConnError } from "../errors/db-connection-error";
+import { User } from "../models/user";
+import { BadRequestError } from "../errors/bad-request-error";
 
 const router = express.Router();
 
@@ -13,14 +14,24 @@ router.post(
       .isLength({ min: 8, max: 20 })
       .withMessage("Password invalid"),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const valid = validationResult(req);
     if (!valid.isEmpty()) {
       throw new RequestValidationError(valid.array());
     }
-    console.log("Creating new user");
-    throw new DbConnError();
-    res.send({});
+
+    const { email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      throw new BadRequestError("Email in use");
+    }
+
+    const user = User.build({ email, password });
+    await user.save();
+
+    res.status(201).send(user);
   }
 );
 
