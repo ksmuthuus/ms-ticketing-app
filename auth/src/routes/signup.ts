@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/request-validation-error";
+import { body } from "express-validator";
+import jwt from "jsonwebtoken";
 import { User } from "../models/user";
 import { BadRequestError } from "../errors/bad-request-error";
+import { validateRequest } from "../middlewares/validateRequest-handler";
 
 const router = express.Router();
 
@@ -14,12 +15,8 @@ router.post(
       .isLength({ min: 8, max: 20 })
       .withMessage("Password invalid"),
   ],
+  validateRequest,
   async (req: Request, res: Response) => {
-    const valid = validationResult(req);
-    if (!valid.isEmpty()) {
-      throw new RequestValidationError(valid.array());
-    }
-
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -30,6 +27,20 @@ router.post(
 
     const user = User.build({ email, password });
     await user.save();
+
+    // Generate JWT
+    const userJwt = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+      },
+      process.env.JWT_KEY!
+    );
+
+    // Store it on session object
+    req.session = {
+      jwt: userJwt,
+    };
 
     res.status(201).send(user);
   }

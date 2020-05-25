@@ -15,6 +15,18 @@ spec:
       containers:
         - name: auth
           image: mukasa/ms-ticket-auth
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "1"
+          env:
+            - name: MONGO_SERVER
+              vaue: auth-mongo-srv
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: jwtkey
+                  name: JWT_KEY
 
 ---
 apiVersion: v1

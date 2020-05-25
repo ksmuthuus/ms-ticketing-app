@@ -32,6 +32,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// transform return object
+userSchema.set("toJSON", {
+  transform(doc, ret) {
+    delete ret.password;
+    delete ret.__v;
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+
 //arrow should not be used since this function to be called in Doc context
 //this binding should refers to the document
 userSchema.pre("save", async function (done) {
