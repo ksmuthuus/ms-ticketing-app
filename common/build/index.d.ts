@@ -3,4 +3,4 @@ interface Color {
     blue: number;
     green: number;
 }
-declare const colour: Color;
+declare const Colour: Color;

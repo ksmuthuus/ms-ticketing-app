@@ -1,7 +1,7 @@
 "use strict";
-var colour = {
+var Colour = {
     blue: 12,
     green: 15,
     red: 10,
 };
-console.log(colour);
+console.log(Colour);
