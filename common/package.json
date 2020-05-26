@@ -1,6 +1,6 @@
 {
   "name": "@ksmuthuus/ms.ticketing.common",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del ./build/*",
-    "build": "npm run clean && tsc",
+    "build": "tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
     "test": "ts-node-dev src/index.ts"
   },

@@ -4,10 +4,10 @@ interface Color {
   green: number;
 }
 
-const color: Color = {
+const colour: Color = {
   blue: 12,
   green: 15,
   red: 10,
 };
 
-console.log(color);
+console.log(colour);
