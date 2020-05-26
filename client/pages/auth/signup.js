@@ -10,12 +10,14 @@ export default () => {
     url: "/api/users/signup",
     method: "post",
     body: { email, password: pwd },
+    onSuccess: () => {
+      Router.push("/");
+    },
   });
 
   const onSubmit = async (event) => {
     event.preventDefault();
     await doRequest();
-    Router.push("/");
   };
 
   return (
