@@ -1,19 +1,18 @@
 import buildClient from "../api/build-client";
 
 const LandingPage = ({ currentUser }) => {
-  console.log("I run at client: ", currentUser);
-  return <h1>Landing Page</h1>;
+  return currentUser ? <h1>Signed in</h1> : <h1>Not Signed In</h1>;
 };
 
 LandingPage.getInitialProps = async (context) => {
-  let response;
   const client = buildClient(context);
+  let data = { currentUser: null };
   try {
-    response = await client.get("/api/users/me");
+    data = await (await client.get("/api/users/me")).data;
   } catch (err) {
     console.log("ERROR ", err);
   }
-  return response?.data || { currentUser: "hi" };
+  return data;
 };
 
 export default LandingPage;
