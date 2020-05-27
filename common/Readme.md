@@ -1,5 +1,5 @@
 # NPM package
 
-## for a simple microservice called "ticketing"
+## common ErrorTypes and Middlewares for a NodeJS application
 
-### npm i @ksmuthuus/ms.ticketing.common
+### npm i @ksmuthuus/common
