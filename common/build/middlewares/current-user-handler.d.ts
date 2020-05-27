@@ -1,4 +1,3 @@
-/// <reference types="qs" />
 import { Request, Response, NextFunction } from "express";
 interface UserPayload {
     email: string;
@@ -11,5 +10,5 @@ declare global {
         }
     }
 }
-export declare const currentUser: (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs>, res: Response<any>, next: NextFunction) => void;
+export declare const currentUser: (req: Request, res: Response, next: NextFunction) => void;
 export {};

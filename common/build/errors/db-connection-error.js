@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DbConnError = void 0;
 var custom_error_1 = require("./custom-error");
 var DbConnError = /** @class */ (function (_super) {
     __extends(DbConnError, _super);
