@@ -1,6 +1,6 @@
 {
   "name": "@ksmuthuus/common",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "del ./build/*",
     "build": "tsc",
-    "pub": "npm version patch && git add . && git commit -m \"publishing npm package\" &&  npm run build && npm publish",
+    "pub": "npm version patch && git add . && git commit -m \"publishing npm package\" &&  npm run build && npm publish --access=public",
     "test": "ts-node-dev src/index.ts"
   },
   "keywords": [],
